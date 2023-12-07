@@ -59,7 +59,3 @@ Les fonctionnalités sont catégorisées par niveaux de difficulté :
 - **Niveau 2** : Implémentation partielle de la logique du jeu
 - **Niveau 3** : Implémentation IHM ou CLI avec IA
 - **Niveau 5** : Systèmes de socket pour les interactions client-serveur et logique de jeu
-
----
-
-Ce README offre une vue d'ensemble des composants et des fonctionnalités attendues dans le projet de Matchmaking en réseau. Il peut être étendu avec des instructions d'installation, d'utilisation et de contribution, selon les besoins du projet.
