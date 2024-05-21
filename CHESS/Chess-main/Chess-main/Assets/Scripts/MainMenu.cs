@@ -45,9 +45,64 @@ public class MainMenu : MonoBehaviourPunCallbacks
             PieceManager.blackTime = 3600;
         }
 
+        PieceManager.IAmode = true;
+        Connect();
+    }
+    public void PlayLocalGame()
+    {
+        if (ddTime.value == 0)
+        {
+            PieceManager.whiteTime = 60;
+            PieceManager.blackTime = 60;
+        }
+        if (ddTime.value == 1)
+        {
+            PieceManager.whiteTime = 300;
+            PieceManager.blackTime = 300;
+        }
+        if (ddTime.value == 2)
+        {
+            PieceManager.whiteTime = 900;
+            PieceManager.blackTime = 900;
+        }
+        if (ddTime.value == 3)
+        {
+            PieceManager.whiteTime = 3600;
+            PieceManager.blackTime = 3600;
+        }
+
         PieceManager.IAmode = false;
         Connect();
     }
+    public void PlayGameVS()
+    {
+        if (ddTime.value == 0)
+        {
+            PieceManager.whiteTime = 60;
+            PieceManager.blackTime = 60;
+        }
+        if (ddTime.value == 1)
+        {
+            PieceManager.whiteTime = 300;
+            PieceManager.blackTime = 300;
+        }
+        if (ddTime.value == 2)
+        {
+            PieceManager.whiteTime = 900;
+            PieceManager.blackTime = 900;
+        }
+        if (ddTime.value == 3)
+        {
+            PieceManager.whiteTime = 3600;
+            PieceManager.blackTime = 3600;
+        }
+
+        PieceManager.IAmode = true;
+        PieceManager.Amode = true;
+        Connect();
+    }
+
+
 
     /// <summary>
     /// Launch game player vs AI mode

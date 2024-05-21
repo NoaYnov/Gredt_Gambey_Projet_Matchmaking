@@ -42,6 +42,7 @@ public class PieceManager : MonoBehaviour
     public static float whiteTime = 60;
 
     public static bool IAmode = true;
+    public static bool Amode = false;
     public static bool isIAWithe = false;
     public IA stockfish = null;
     [HideInInspector]
@@ -147,8 +148,23 @@ public class PieceManager : MonoBehaviour
         enPassantCell = null;
         checkVerificationInProcess = false;
         clockManager.Setup(whiteTime, blackTime, this);
-
-        if (IAmode){
+        if (Amode && IAmode)
+        {
+            stockfish.Setup();
+            if (isIAWithe)
+            {
+                StartCoroutine(showIAMoveCoroutine());
+                clockManager.displayBlack.text = "Joueur 2";
+                clockManager.displayWhite.text = "Joueur 1";
+            }
+            else
+            {
+                SetInteractive(whitePieces, true);
+                clockManager.displayWhite.text = "Joueur 1";
+                clockManager.displayBlack.text = "Joueur 2";
+            }
+        }
+        if (IAmode && !Amode){
             stockfish.Setup();
             if (isIAWithe)
             {
@@ -163,6 +179,7 @@ public class PieceManager : MonoBehaviour
                 clockManager.displayBlack.text = "IA Niveau " + IA.IA_Game_Level[IA.level];
             }
         }
+        
         else
         {
             SetInteractive(whitePieces, true);            
@@ -216,7 +233,7 @@ public class PieceManager : MonoBehaviour
 
         checkVerificationInProcess = false;
 
-        if (IAmode)
+        if (IAmode &&  !Amode)
         {
             stockfish.Close();
             stockfish.Setup();
@@ -355,12 +372,25 @@ public class PieceManager : MonoBehaviour
         
         IATurn = true;
         string best = stockfish.GetBestMove();
-        yield return new WaitForSeconds((float)2);
+        if (!Amode)
+        {
+        yield return new WaitForSeconds((float)0.5);
+        }
+        else
+        {   
+            //attendre tant que clique gauche pas effectué
+            while (!Input.GetMouseButtonDown(0))
+            {
+                yield return null;
+            }
+        }
         
         string depA = best.Substring(0, 1);
         string depB = best.Substring(1, 1);
         string arrA = best.Substring(2, 1);
         string arrB = best.Substring(3, 1);
+
+        Debug.Log(depA + depB);
 
         Cell dep = chessBoard.allCells[coordA[depA]][coordB[depB]];
         Cell targ = chessBoard.allCells[coordA[arrA]][coordB[arrB]];
@@ -389,6 +419,7 @@ public class PieceManager : MonoBehaviour
             clockManager.setTurn(!isIAWithe);
         }
     }
+    
 
     /// <summary>
     /// Transform pawn into queen
@@ -424,10 +455,12 @@ public class PieceManager : MonoBehaviour
         {
             whitePieces.Remove(pawn);
             whitePieces.Add(queen);
+            SetTurn(false);
         } else
         {
             blackPieces.Remove(pawn);
             blackPieces.Add(queen);
+            SetTurn(true);
         }
         queen.gameObject.SetActive(true);        
     }
