@@ -10,11 +10,10 @@ public class Playerdata : MonoBehaviour
     public string database = "chess_player";
     public string user = "root@localhost";
     public string password = "";
-    public string port = "80"; // Port for HTTP, typically MySQL uses 3306 but for demonstration, we use 80.
+    public string port = "80";
 
     public Transform contentPanel;
     public GameObject playerItemPrefab;
-    //declare un boutton
     public Canvas canvas;
 
     void Start()
