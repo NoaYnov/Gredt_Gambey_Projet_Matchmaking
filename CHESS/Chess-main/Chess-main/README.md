@@ -1,6 +1,6 @@
 # Chess  
-Projet libre Polytech Tours DI5 - Jeu d'echecs  
-Auteurs : JAGOREL Gaétan & DERENNE Yohan  
+Projet Matchmaking B2 INFO - Jeu d'echecs  
+Auteurs : Gredt Mathis - Gambey Noa 
 
 ## Installation  
 - Extraire le fichier "release.zip"  
