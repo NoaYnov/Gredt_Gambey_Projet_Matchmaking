@@ -1742,6 +1742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 688860721}
   - component: {fileID: 688860722}
+  - component: {fileID: 688860723}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1790,6 +1791,18 @@ MonoBehaviour:
   ddIASide: {fileID: 104483765}
   btn: {fileID: 853088498}
   feedbackText: {fileID: 317794465}
+--- !u!114 &688860723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688860720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2434f1f3be64749498729a6a3e97ba46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705594323
 GameObject:
   m_ObjectHideFlags: 0
