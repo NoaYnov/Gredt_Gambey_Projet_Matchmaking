@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
+
+
 public class ChessPlayersDisplay : MonoBehaviour
 {
     private string url = "http://127.0.0.1/bdd.php";
+    public GameObject textPrefab;
+    public Transform contentTransform;
+    public TextMeshProUGUI textComponent;
 
     void Start()
     {
@@ -29,7 +35,7 @@ public class ChessPlayersDisplay : MonoBehaviour
                 string jsonResponse = webRequest.downloadHandler.text;
                 Debug.Log("JSON Response: " + jsonResponse);
 
-                PlayerData[] players = JsonHelper.FromJsonArray<PlayerData>(jsonResponse);
+                List<PlayerData> players = DataParser.ParsePlayerData(jsonResponse);
 
                 if (players == null)
                 {
@@ -37,15 +43,13 @@ public class ChessPlayersDisplay : MonoBehaviour
                 }
                 else
                 {
+                    string playerInfo = "";
                     foreach (PlayerData player in players)
                     {
-                        Debug.Log("ID: " + player.id);
-                        Debug.Log("First Name: " + player.first_name);
-                        Debug.Log("Last Name: " + player.last_name);
-                        Debug.Log("Elo: " + player.elo);
-                        Debug.Log("Nationality: " + player.nationality);
-                        Debug.Log("Is In Game: " + player.is_in_game);
+                        playerInfo += $"Player: {player.first_name} {player.last_name}, ELO: {player.elo}\n\n";
                     }
+
+                    textComponent.text = playerInfo;
                 }
             }
         }
@@ -53,6 +57,7 @@ public class ChessPlayersDisplay : MonoBehaviour
 
 }
 
+[System.Serializable]
 public class PlayerData
 {
     public int id;
@@ -62,24 +67,16 @@ public class PlayerData
     public string nationality;
     public bool is_in_game;
 }
-
-public static class JsonHelper
+[System.Serializable]
+public class PlayerDataList
 {
-    public static T[] FromJson<T>(string json)
-    {
-        return JsonUtility.FromJson<Wrapper<T>>(json).Items;
-    }
-
-    [Serializable]
-    private class Wrapper<T>
-    {
-        public T[] Items;
-    }
-
-    public static T[] FromJsonArray<T>(string json)
-{
-    string newJson = "{ \"Items\": " + json + "}";
-    Debug.Log("Transformed JSON: " + newJson);
-    return FromJson<T>(newJson);
+    public List<PlayerData> players;
 }
+public class DataParser
+{
+    public static List<PlayerData> ParsePlayerData(string json)
+    {
+        PlayerDataList playerDataList = JsonUtility.FromJson<PlayerDataList>("{\"players\":" + json + "}");
+        return playerDataList.players;
+    }
 }
