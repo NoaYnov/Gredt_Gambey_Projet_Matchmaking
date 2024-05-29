@@ -13,9 +13,11 @@ public class MainMenu : MonoBehaviourPunCallbacks
     public TMP_Dropdown ddTime;
     public TMP_Dropdown ddLevel;
     public TMP_Dropdown ddIASide;
+
+    public GameObject bddCanvas;
     public Button btn;
     public Text feedbackText;
-    private byte maxPlayersPerRoom = 4;
+    private byte maxPlayersPerRoom = 2;
     private bool isConnecting;
     private string gameVersion = "1";
 
@@ -102,6 +104,15 @@ public class MainMenu : MonoBehaviourPunCallbacks
         Connect();
     }
 
+    public void DisplayBddCanvas()
+    {
+        bddCanvas.SetActive(true);
+    }
+
+    public void HideBddCanvas()
+    {
+        bddCanvas.SetActive(false);
+    }
 
 
     /// <summary>
@@ -185,7 +196,6 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         LogFeedback("<Color=Red>OnJoinRandomFailed</Color>: Next -> Create a new Room");
         Debug.Log("PUN Basics Tutorial/Launcher:OnJoinRandomFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom");
-
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = this.maxPlayersPerRoom });
     }
     public override void OnDisconnected(DisconnectCause cause)

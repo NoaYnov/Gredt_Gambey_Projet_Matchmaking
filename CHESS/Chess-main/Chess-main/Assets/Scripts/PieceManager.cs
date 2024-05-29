@@ -148,9 +148,10 @@ public class PieceManager : MonoBehaviour
         enPassantCell = null;
         checkVerificationInProcess = false;
         clockManager.Setup(whiteTime, blackTime, this);
+        stockfish.Setup();
         if (Amode && IAmode)
         {
-            stockfish.Setup();
+            //stockfish.Setup();
             if (isIAWithe)
             {
                 StartCoroutine(showIAMoveCoroutine());
@@ -165,7 +166,7 @@ public class PieceManager : MonoBehaviour
             }
         }
         if (IAmode && !Amode){
-            stockfish.Setup();
+            //stockfish.Setup();
             if (isIAWithe)
             {
                 StartCoroutine(showIAMoveCoroutine());
@@ -390,7 +391,7 @@ public class PieceManager : MonoBehaviour
         string arrA = best.Substring(2, 1);
         string arrB = best.Substring(3, 1);
 
-        Debug.Log(depA + depB);
+        
 
         Cell dep = chessBoard.allCells[coordA[depA]][coordB[depB]];
         Cell targ = chessBoard.allCells[coordA[arrA]][coordB[arrB]];
@@ -401,7 +402,7 @@ public class PieceManager : MonoBehaviour
             best += "q";
         }
 
-        Debug.Log(best);
+        
 
         stockfish.setIAmove(best);
 

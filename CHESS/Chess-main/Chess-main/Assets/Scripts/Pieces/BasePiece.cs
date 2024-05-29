@@ -249,7 +249,7 @@ public abstract class BasePiece : EventTrigger
                 {
                     move += "q";
                 }
-                Debug.Log(move);
+                
                 pieceManager.stockfish.setIAmove(move);
                 Move();
             }
@@ -429,7 +429,7 @@ public abstract class BasePiece : EventTrigger
             {
                 pieceManager.gameState = GameState.PAT;
             }
-            Debug.Log(pieceManager.gameState);
+            
             pieceManager.ShowResult();
         }
     }
